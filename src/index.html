@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
+  <title>METTC</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🔐 METTC</h1>
+  <p class="sub">Mapping Encryption Text To Confused · AES-256-GCM</p>
+
+  <div class="card">
+    <div class="row">
+      <label>Văn bản gốc / Ký hiệu cần giải:</label>
+      <textarea id="input" placeholder="Nhập văn bản tiếng Việt hoặc dán ký hiệu vào đây..."></textarea>
+    </div>
+
+    <div class="row two">
+      <div>
+        <label>Key (bỏ trống để tự sinh):</label>
+        <input id="key" type="text" placeholder="vd: hello">
+      </div>
+      <div>
+        <label>Chế độ key:</label>
+        <select id="keyMode">
+          <option value="raw">Raw — Deterministic</option>
+          <option value="derived">Derived — Salt + PBKDF2</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row two">
+      <div>
+        <label>Bảng ký tự output:</label>
+        <select id="charset">
+          <option value="unicode">Unicode lạ (꧁༒ᚠᚢᛉ ...)</option>
+          <option value="ascii">ASCII đặc biệt (!@#$%^& ...)</option>
+        </select>
+      </div>
+      <div>
+        <label>Số ký tự output (0 = không pad):</label>
+        <input id="targetLen" type="number" value="0" min="0">
+      </div>
+    </div>
+
+    <div class="row checkbox-row">
+      <input type="checkbox" id="strictMode">
+      <label for="strictMode">
+        <b>Strict mode</b> — không cho thừa/thiếu dù 1 ký tự
+        <span class="hint">Bản mã tạo ở strict mode sẽ tự bật strict khi giải mã.</span>
+      </label>
+    </div>
+
+    <div class="row checkbox-row" id="debugRow" style="display:none">
+      <input type="checkbox" id="debugMode">
+      <label for="debugMode">
+        <b>Debug mode</b> — hiện lỗi chi tiết
+        <span class="hint">⚠ Chỉ bật khi phát triển. Rò rỉ thông tin khi release.</span>
+      </label>
+    </div>
+
+    <div class="buttons">
+      <button id="btnEncrypt" class="primary">🔒 Mã hóa</button>
+      <button id="btnDecrypt" class="secondary">🔓 Giải mã</button>
+      <button id="btnGenKey" class="ghost">🎲 Sinh key</button>
+      <button id="btnClear" class="ghost">🗑 Xóa</button>
+    </div>
+
+    <div class="row">
+      <label>Kết quả:</label>
+      <textarea id="output" readonly placeholder="Kết quả hiện ở đây..."></textarea>
+    </div>
+
+    <div class="row">
+      <label>Key đã dùng:</label>
+      <input id="usedKey" type="text" readonly placeholder="(hiện sau khi mã hóa)">
+    </div>
+
+    <div class="row">
+      <label>Trạng thái:</label>
+      <div id="status" class="status">Sẵn sàng.</div>
+    </div>
+  </div>
+
+  <p class="footer">METTC v1.0.0 · © 2025</p>
+
+  <script src="cipher.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
