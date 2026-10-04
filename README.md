@@ -2,7 +2,6 @@
 
 ---
 
-```markdown
 # ⬢ METTC — Mapping Encryption Text To Confused
 
 > **Biến văn bản thành mật mã. Đơn giản, mạnh mẽ, miễn phí.**
